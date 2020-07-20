@@ -1,0 +1,23 @@
+description: object_detection_pytorch_adaptive_search
+environment:
+   image: "determinedai/scratch:cuda-10.0-pytorch-1.4-tf-1.14-gpu-0c9e956"
+data:
+  path: "/home/kiwiuser/sagar/traffic_oblique/512/"
+hyperparameters:
+  learning_rate:
+    type: double
+    minval: 0.0001
+    maxval: 0.001
+  momentum:
+    type: double
+    minval: 0.2
+    maxval: 1.0
+  weight_decay: 0.0005
+  global_batch_size: 2
+searcher:
+  name: adaptive_simple
+  metric: val_avg_iou
+  max_steps: 8
+  smaller_is_better: false
+  max_trials: 16
+entrypoint: model_def:ObjectDetectionTrial
